@@ -6,44 +6,58 @@ import {
   SelectComponent,
   RatingComponent,
 } from 'common/components';
-import { Lookup } from 'common/models';
 import { formValidation } from './character.validations';
 import { Character } from './character.vm';
 import * as classes from './character.styles';
 
 interface Props {
   character: Character;
-  cities: Lookup[];
   onSave: (character: Character) => void;
 }
 
-export const CharacterlComponent: React.FunctionComponent<Props> = (props) => {
-  const { character, cities, onSave } = props;
+export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
+  const { character, onSave } = props;
 
   return (
-    <Formik
-      onSubmit={onSave}
-      initialValues={character}
-      enableReinitialize={true}
-      validate={formValidation.validateForm}
-    >
-      {() => (
-        <Form className={classes.root}>
-          <TextFieldComponent name="name" label="Name" />
-          <TextFieldComponent name="status" label="status" />
-          <RatingComponent name="rating" max={5} />
-          <SelectComponent name="city" label="City" items={cities} />
-          <TextFieldComponent
-            name="description"
-            label="Description"
-            multiline={true}
-            rows={3}
-          />
-          <Button type="submit" variant="contained" color="primary">
-            Save
-          </Button>
-        </Form>
-      )}
-    </Formik>
+    <main className={classes.main}>
+      <h2>{character.name}</h2>
+      <div className={classes.infoContainer}>
+        <div>
+          <img src={character.image} alt="character" />
+        </div>
+        <ul className={classes.list}>
+          <li>
+            <div className={classes.listInfo}>
+              <p  className={classes.ItemTitle}>Status: </p>
+              <p>{character.status}</p>
+            </div>
+          </li>
+          <li>
+            <div className={classes.listInfo}>
+              <p className={classes.ItemTitle}>Species: </p>
+              <p>{character.species}</p>
+            </div>
+          </li>
+          <li>
+            <div className={classes.listInfo}>
+              <p className={classes.ItemTitle}>Gender: </p>
+              <p> {character.gender}</p>
+            </div>
+          </li>
+          <li>
+            <div className={classes.listInfo}>
+              <p className={classes.ItemTitle}>Name: </p>
+              <p>{character.location.name}</p>
+            </div>
+          </li>
+          <li>
+            <div className={classes.listInfo}>
+              <p className={classes.ItemTitle}>Origin: </p>
+              <p>{character.origin}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
   );
 };

@@ -2,31 +2,27 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as api from './api';
 import { createEmptyCharacter, Character } from './character.vm';
-import { mapCharacterlFromApiToVm, mapCharacterFromVmToApi } from './character.mappers';
-import { Lookup } from 'common/models';
+import { mapCharacterFromApiToVm, mapCharacterFromVmToApi } from './character.mappers';
 import { CharacterComponent } from './character.component';
 
 export const CharacterContainer: React.FunctionComponent = (props) => {
   const [character, setCharacter] = React.useState<Character>(createEmptyCharacter());
-  const [epsides, setEpisodes] = React.useState<Lookup[]>([]);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const handleLoadCityCollection = async () => {
-    const apiEpisodes = await api.getEpisodes();
-    setEpisodes(apiEpisodes);
-  };
-
   const handleLoadCharacter = async () => {
-    const apiCharacter = await api.getCharacter(id);
-    setCharacter(mapCharacterFromApiToVm(apiCharacter));
+    const characterId = parseInt(id);
+    api.getCharacter(characterId)
+      .then((results) => mapCharacterFromApiToVm(results))
+      .then((results) => {
+        setCharacter(results)
+      })
   };
 
   React.useEffect(() => {
     if (id) {
       handleLoadCharacter();
     }
-    handleLoadCityCollection();
   }, []);
 
   const handleSave = async (character: Character) => {
@@ -39,5 +35,5 @@ export const CharacterContainer: React.FunctionComponent = (props) => {
     }
   };
 
-  return <CharacterlComponent character={character} episodes={episodes} onSave={handleSave} />;
+  return <CharacterComponent character={character} onSave={handleSave} />;
 };

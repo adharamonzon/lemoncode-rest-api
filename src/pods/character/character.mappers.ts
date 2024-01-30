@@ -23,5 +23,5 @@ export const mapCharacterFromVmToApi = (character: viewModel.Character): apiMode
     species: character.species,
     gender: character.gender,
     image: character.image,
-    origin: character.origin.name
+    origin: character.origin
   } as unknown) as apiModel.Character);
