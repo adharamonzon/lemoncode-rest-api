@@ -36,17 +36,18 @@ export const CharacterContainer: React.FunctionComponent = (props) => {
     await api.saveSentence(apiCharacter.id, character);    
   };
 
-  const handelEdit = async (id: number, newSentence: string) => {
-    console.log('id', id);
+  const handelupdate = async (id: number, newSentence: string, action: string) => {
     let element = '';
-    for (let i = 0; i < character.bestSentences.length; i++) {
-      element = character.bestSentences[id];
-      console.log('element', element);
-      character.bestSentences[id] = newSentence;
-      element = newSentence;
+    if (action === 'edit') {
+      for (let i = 0; i < character.bestSentences.length; i++) {
+        element = character.bestSentences[id];
+        character.bestSentences[id] = newSentence;
+      }
+    } else {
+      character.bestSentences.splice(id,1);
     }
     await api.updateSentence(character.id, character,);
   }
 
-  return <CharacterComponent character={character} saveSentence={handleSave} editSentence={handelEdit} />;
+  return <CharacterComponent character={character} saveSentence={handleSave} editSentence={handelupdate} />;
 };

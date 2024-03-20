@@ -6,7 +6,7 @@ import { input } from '../../common/components/form/text-field/text-field.styles
 interface Props {
   character: Character;
   saveSentence: (sentence: string, id?: number) => void;
-  editSentence: (id: number, newSentence: string) => void;
+  editSentence: (id: number, newSentence: string, action: string) => void;
 }
 
 export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
@@ -19,9 +19,8 @@ export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
     setSentence('');
   }
 
-  const handelEdit = (id: number) => {
-    console.log('component', id);
-    editSentence(id, newSentence)
+  const handelChangeSentence = (id: number, action: string) => {
+    editSentence(id, newSentence, action)
   }
 
   return (
@@ -76,8 +75,8 @@ export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
                 <p>{sentence}</p>
                 <input className={classes.input} placeholder=' Update sentence' type='text' onChange={(e) => setNewSentence(e.currentTarget.value)}/>
                 <div  className={classes.btnContainer}>
-                  <button className={classes.btn} onClick={() => handelEdit(id)}>Edit</button>
-                  <button className={classes.btn}>Delete</button>
+                  <button className={classes.btn} onClick={() => handelChangeSentence(id, 'edit')}>Edit</button>
+                  <button className={classes.btn} onClick={() => handelChangeSentence(id, 'delete')}>Delete</button>
                 </div>
               </li>)
             })

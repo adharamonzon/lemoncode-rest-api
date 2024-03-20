@@ -44,10 +44,10 @@ export const addSentenceContainer = css`
 `;
 
 export const input = css`
-  height: 40px;
+  height: 35px;
   border: none;
   border-bottom: solid 1px black;
-  margin: 30px 0;
+  margin: 0 0 30px 0;
   width: 500px;
 `;
 

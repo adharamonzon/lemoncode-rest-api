@@ -90,8 +90,7 @@
         "https://rickandmortyapi.com/api/episode/51"
       ],
       "bestSentences": [
-        "updated sentence",
-        "sentence 3"
+        "sentences"
       ],
       "url": "https://rickandmortyapi.com/api/character/2",
       "created": "2017-11-04T18:50:21.651Z"
